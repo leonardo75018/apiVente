@@ -9,7 +9,6 @@ interface IRequest {
     quantity: number;
 }
 
-
 class CreateProductService {
     public async execute({ name, price, quantity }: IRequest): Promise<Product> {
         const productsRepository = getCustomRepository(ProductRepository);
@@ -29,6 +28,4 @@ class CreateProductService {
         return product;
     }
 }
-
-
 export default CreateProductService;
