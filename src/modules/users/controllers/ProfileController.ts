@@ -1,4 +1,3 @@
-import UpdateProductService from '@modules/products/services/UpdateProductService';
 import { Request, Response } from 'express';
 import ShowProfileService from '../services/ShowProfileService';
 import UpdateProfileService from '../services/UpdateProfileService';
