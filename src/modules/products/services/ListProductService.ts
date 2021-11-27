@@ -3,16 +3,19 @@ import Product from '../typeorm/entities/Products';
 import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
 import RedisCache from '@shared/cache/RedisCache';
 
-
 class ListProductService {
     public async execute(): Promise<Product[]> {
         const productsRepository = getCustomRepository(ProductRepository);
 
-        const redisCache = new RedisCache();
+        let products = await RedisCache.recover<Product[]>(
+            'api-ventes-PRODUCTS_LIST',
+        );
 
-        const products = productsRepository.find();
+        if (!products) {
+            products = await productsRepository.find();
 
-        await redisCache.save('test', 'teste');
+            await await RedisCache.save('api-ventes-PRODUCTS_LIST', products);
+        }
 
         return products;
     }
